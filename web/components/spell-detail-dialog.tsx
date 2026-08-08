@@ -160,6 +160,15 @@ export function SpellDetailDialog({
                   </>
                 ) : null}
 
+                {spell.short_description ? (
+                  <>
+                    <Separator />
+                    <p className="text-sm leading-relaxed text-muted-foreground">
+                      {spell.short_description}
+                    </p>
+                  </>
+                ) : null}
+
                 {spell.description ? (
                   <>
                     <Separator />

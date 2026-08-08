@@ -22,6 +22,7 @@ export type Spell = {
   saving_throw: string | null
   spell_resistance: string | null
   source: string | null
+  short_description: string | null
   description: string
   mythic: boolean
   mythic_version: MythicVersion | null
@@ -264,6 +265,7 @@ export function filterSpells(spells: Spell[], filters: SpellFilters): Spell[] {
         spell.school,
         spell.subschool,
         spell.descriptor,
+        spell.short_description,
         spell.description,
       ]
         .filter(Boolean)

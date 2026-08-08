@@ -76,6 +76,11 @@ export function SpellTable({
                   >
                     {spell.name}
                   </Link>
+                  {spell.short_description ? (
+                    <span className="max-w-xs text-xs font-normal text-muted-foreground line-clamp-2">
+                      {spell.short_description}
+                    </span>
+                  ) : null}
                   {spell.mythic ? (
                     <Badge className="w-fit" variant="secondary">
                       Mythic

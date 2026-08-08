@@ -115,9 +115,9 @@ export function SpellCard({
             </div>
           ) : null}
         </dl>
-        {spell.description ? (
+        {spell.short_description || spell.description ? (
           <p className="line-clamp-3 text-sm text-muted-foreground">
-            {spell.description}
+            {spell.short_description || spell.description}
           </p>
         ) : null}
         {classEntries.length > 0 ? (

@@ -29,13 +29,15 @@ npm run lint
 
 Runtime data is [`data/spells.json`](data/spells.json), built from `../spells_with_classes.json`.
 
-Regenerate after scraping:
+Regenerate after scraping or enriching short descriptions:
 
 ```bash
-python3 scripts/build-spells-data.py
-```
+# from repo root — refresh short_description from AoN list page
+python3 enrich_short_descriptions.py
 
-Or run the equivalent inline script from the repo root README.
+# from web/
+npm run data:build
+```
 
 ## Deploy
 

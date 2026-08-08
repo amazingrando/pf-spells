@@ -45,10 +45,15 @@ After re-scraping, rebuild `web/data/spells.json`:
 
 ```bash
 cd web
-python3 scripts/build-spells-data.py
+npm run data:build
 ```
 
-(If that script is missing, see [`web/README.md`](web/README.md) for an inline snippet.)
+To refresh AoN list-page short descriptions into `spells_with_classes.json` (then rebuild app data):
+
+```bash
+python3 enrich_short_descriptions.py
+cd web && npm run data:build
+```
 
 ## Deploy on Netlify
 
