@@ -50,6 +50,7 @@ def main() -> None:
                 "saving_throw": spell.get("saving_throw"),
                 "spell_resistance": spell.get("spell_resistance"),
                 "source": spell.get("source"),
+                "short_description": spell.get("short_description") or None,
                 "description": spell.get("description_text") or "",
                 "mythic": bool(spell.get("mythic")),
                 "mythic_version": mythic_version,
