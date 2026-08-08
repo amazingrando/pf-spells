@@ -1,6 +1,13 @@
 # Spellscraper Web
 
-Next.js + shadcn/ui browser for Pathfinder spells scraped from Archives of Nethys.
+Next.js 16 + shadcn/ui app for browsing Pathfinder spells and managing local spellbooks.
+
+## Features
+
+- Search and filter spells by school, subschool, descriptor, class, level, range, components, spell resistance, and mythic
+- Grid and table layouts (preference saved in the browser)
+- Spell detail modal with shareable `?spell=` links
+- Spellbooks stored in `localStorage`, with compressed share URLs (`?book=`) and JSON import/export
 
 ## Develop
 
@@ -11,41 +18,31 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000).
 
+```bash
+npm run build
+npm run start
+npm run typecheck
+npm run lint
+```
+
 ## Data
 
-Spell data lives in `data/spells.json` (slimmed from `../spells_with_classes.json`).
+Runtime data is [`data/spells.json`](data/spells.json), built from `../spells_with_classes.json`.
 
-To regenerate after scraping:
+Regenerate after scraping:
 
 ```bash
-python3 - <<'PY'
-import json
-from pathlib import Path
-src = Path("../spells_with_classes.json")
-out = Path("data/spells.json")
-spells = json.loads(src.read_text())
-slim = []
-for s in spells:
-    desc = s.get("description_text") or ""
-    if len(desc) > 400:
-        desc = desc[:397].rsplit(" ", 1)[0] + "…"
-    slim.append({
-        "name": s.get("name"),
-        "url": s.get("url"),
-        "school": s.get("school"),
-        "subschool": s.get("subschool"),
-        "descriptor": s.get("descriptor"),
-        "casting_time": s.get("casting_time"),
-        "components": s.get("components"),
-        "range": s.get("range"),
-        "duration": s.get("duration"),
-        "saving_throw": s.get("saving_throw"),
-        "spell_resistance": s.get("spell_resistance"),
-        "description": desc,
-        "mythic": bool(s.get("mythic")),
-        "classes": s.get("classes") or {},
-    })
-out.write_text(json.dumps(slim, separators=(",", ":")))
-print(len(slim), "spells")
-PY
+python3 scripts/build-spells-data.py
 ```
+
+Or run the equivalent inline script from the repo root README.
+
+## Deploy
+
+Deploy from the **repository root** using the root [`netlify.toml`](../netlify.toml) (`base = "web"`). See the [root README](../README.md#deploy-on-netlify) for Netlify UI and CLI steps.
+
+## Stack
+
+- Next.js App Router + React 19
+- Tailwind CSS v4 + shadcn/ui (Base UI)
+- `lz-string` for spellbook share payloads

@@ -1,0 +1,18 @@
+[build]
+  base = "web"
+  command = "npm run build"
+  publish = ".next"
+
+[build.environment]
+  NODE_VERSION = "22"
+  NPM_FLAGS = "--prefer-offline --no-audit"
+
+# Next.js on Netlify is handled automatically by the OpenNext adapter.
+# Do not pin @netlify/plugin-nextjs unless you intentionally want to opt out of auto-updates.
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
