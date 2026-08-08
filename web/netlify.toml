@@ -1,5 +1,4 @@
 [build]
-  base = "web"
   command = "npm run build"
   publish = ".next"
 
@@ -7,8 +6,10 @@
   NODE_VERSION = "22"
   NPM_FLAGS = "--prefer-offline --no-audit"
 
-# Next.js on Netlify is handled automatically by the OpenNext adapter.
-# Do not pin @netlify/plugin-nextjs unless you intentionally want to opt out of auto-updates.
+# Essential for App Router / SSR — without this, Netlify deploys the raw
+# `.next` folder as static files and every route 404s.
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
 
 [[headers]]
   for = "/*"

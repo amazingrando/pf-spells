@@ -52,22 +52,34 @@ python3 scripts/build-spells-data.py
 
 ## Deploy on Netlify
 
-The site is configured via [`netlify.toml`](netlify.toml) at the repo root (`base = "web"`).
+Config lives in [`web/netlify.toml`](web/netlify.toml) (Next.js adapter + build settings).
+
+### Netlify UI build settings (important)
+
+Open **Project configuration → Build & deploy → Build settings → Configure** and set:
+
+| Field | Value |
+|------|--------|
+| Base directory | `web` |
+| Package directory | *(leave empty)* |
+| Build command | `npm run build` |
+| Publish directory | `.next` |
+
+Do **not** set publish to `web/.next` when base is already `web` — Netlify resolves publish *relative to base*, so that looks for `web/web/.next` and you get “Page not found”.
 
 ### Option A — Netlify UI
 
 1. Push this repo to GitHub/GitLab/Bitbucket.
-2. In Netlify: **Add new site → Import an existing project**.
-3. Select the repo. Netlify should pick up `netlify.toml` (base `web`, `npm run build`).
-4. Deploy. No extra plugins are required — Netlify’s Next.js adapter runs automatically for Next.js 16.
+2. In Netlify: **Add new site → Import an existing project** (or trigger a new deploy after fixing settings above).
+3. Apply the build settings table, then deploy.
 
 ### Option B — Netlify CLI
 
 ```bash
 npm install -g netlify-cli
-# from repo root
+cd web
 netlify login
-netlify init    # or: netlify link
+netlify link
 netlify deploy --build --prod
 ```
 
@@ -75,7 +87,7 @@ netlify deploy --build --prod
 
 - Spellbooks use `localStorage` in each visitor’s browser. They are not stored on Netlify.
 - Share links encode the spellbook in the URL (`?book=…`) so others can import a copy.
-- Node **20+** is recommended (set in `netlify.toml`).
+- Node **20+** is required (`NODE_VERSION = 22` in `web/netlify.toml`).
 
 ## License / data
 

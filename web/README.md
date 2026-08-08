@@ -39,7 +39,7 @@ Or run the equivalent inline script from the repo root README.
 
 ## Deploy
 
-Deploy from the **repository root** using the root [`netlify.toml`](../netlify.toml) (`base = "web"`). See the [root README](../README.md#deploy-on-netlify) for Netlify UI and CLI steps.
+See the [root README](../README.md#deploy-on-netlify). Config is [`netlify.toml`](netlify.toml) in this folder. In the Netlify UI, set **Base directory** to `web` and **Publish directory** to `.next` (not `web/.next`).
 
 ## Stack
 
